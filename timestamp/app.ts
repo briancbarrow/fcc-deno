@@ -15,7 +15,7 @@ router.get("/", async (ctx) => {
 
 router.get("/public/:path+", async (ctx) => {
   await send(ctx, ctx.params.path || "", {
-    root: `${Deno.cwd()}/public`,
+    root: `${Deno.cwd()}/timestamp/public`,
   });
 });
 
