@@ -7,7 +7,7 @@ const router = new Router();
 
 router.get("/", async (ctx) => {
   // ctx.response.body = "Hello Tuesday Study Group!";
-  const text = await Deno.readTextFile("./index.html");
+  const text = await Deno.readTextFile(`${Deno.cwd()}/index.html`);
   ctx.response.headers.set("Content-Type", "text/html");
   ctx.response.body = text;
 });
