@@ -7,7 +7,6 @@ const router = new Router();
 
 router.get("/", async (ctx) => {
   // ctx.response.body = "Hello Tuesday Study Group!";
-  console.log("CWD", Deno.cwd());
   const text = await Deno.readTextFile(`${Deno.cwd()}/timestamp/index.html`);
   ctx.response.headers.set("Content-Type", "text/html");
   ctx.response.body = text;
@@ -21,7 +20,7 @@ router.get("/public/:path+", async (ctx) => {
 
 router.get("/api/:date", async (ctx) => {
   const date = ctx.params.date;
-  const dateObj = new Date(date);
+  const dateObj = new Date(+date);
   ctx.response.body = {
     unix: dateObj.getTime(),
     utc: dateObj.toUTCString(),
