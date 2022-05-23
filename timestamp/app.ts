@@ -47,9 +47,9 @@ router.get("/api", async (ctx) => {
   ctx.response.body = getDateObj(new Date());
 });
 
+app.use(oakCors());
 app.use(router.routes());
 app.use(router.allowedMethods());
-app.use(oakCors());
 
 console.log(`Listening on port ${PORT} ...`);
 await app.listen(`${HOST}:${PORT}`);
