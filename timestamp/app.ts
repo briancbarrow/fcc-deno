@@ -1,9 +1,18 @@
 import { Application, Router, send } from "https://deno.land/x/oak/mod.ts";
+import { oakCors } from "https://deno.land/x/cors/mod.ts";
+
 const HOST = "0.0.0.0";
 const PORT = 8000;
 
 const app = new Application();
 const router = new Router();
+
+function getDateObj(dateObj: Date) {
+  return {
+    unix: dateObj.getTime(),
+    utc: dateObj.toUTCString(),
+  };
+}
 
 router.get("/", async (ctx) => {
   // ctx.response.body = "Hello Tuesday Study Group!";
@@ -20,15 +29,27 @@ router.get("/public/:path+", async (ctx) => {
 
 router.get("/api/:date", async (ctx) => {
   const date = ctx.params.date;
-  const dateObj = new Date(+date);
-  ctx.response.body = {
-    unix: dateObj.getTime(),
-    utc: dateObj.toUTCString(),
-  };
+  let dateObj = new Date(date);
+
+  if (dateObj.toString() === "Invalid Date") {
+    dateObj = new Date(+date);
+    if (dateObj.toString() === "Invalid Date") {
+      ctx.response.body = {
+        error: "Invalid Date",
+      };
+      return;
+    }
+  }
+  ctx.response.body = getDateObj(dateObj);
+});
+
+router.get("/api", async (ctx) => {
+  ctx.response.body = getDateObj(new Date());
 });
 
 app.use(router.routes());
 app.use(router.allowedMethods());
+app.use(oakCors());
 
 console.log(`Listening on port ${PORT} ...`);
 await app.listen(`${HOST}:${PORT}`);
