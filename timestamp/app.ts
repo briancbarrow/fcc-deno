@@ -27,7 +27,7 @@ router.get("/public/:path+", async (ctx) => {
   });
 });
 
-router.get("/api/:date", async (ctx) => {
+router.get("/api/:date", (ctx) => {
   const date = ctx.params.date;
   let dateObj = new Date(date);
 
