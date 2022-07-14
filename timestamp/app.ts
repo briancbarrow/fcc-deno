@@ -48,7 +48,7 @@ router.get("/api/:date", (ctx) => {
 
 router.get("/api", (ctx) => {
   ctx.response.body = {
-    text: "Hello there",
+    text: "Hello KCDC!",
     date: getDateObj(new Date()),
   };
 });
