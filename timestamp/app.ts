@@ -43,8 +43,11 @@ router.get("/api/:date", (ctx) => {
   ctx.response.body = getDateObj(dateObj);
 });
 
-router.get("/api", async (ctx) => {
-  ctx.response.body = getDateObj(new Date());
+router.get("/api", (ctx) => {
+  ctx.response.body = {
+    date: getDateObj(new Date()),
+    text: "Hello KCDC!",
+  };
 });
 
 app.use(oakCors());
