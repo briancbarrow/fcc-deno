@@ -49,7 +49,7 @@ router.get("/api/:date", (ctx) => {
 router.get("/api", (ctx) => {
   ctx.response.body = {
     text: "Hello there",
-    date: `Today is ${getDateObj(new Date())}`,
+    date: getDateObj(new Date()),
   };
 });
 
