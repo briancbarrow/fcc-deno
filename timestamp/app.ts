@@ -27,7 +27,7 @@ router.get("/public/:path+", async (ctx) => {
   });
 });
 
-router.get("/api/:date", async (ctx) => {
+router.get("/api/:date", (ctx) => {
   const date = ctx.params.date;
   let dateObj = new Date(date);
 
@@ -40,11 +40,17 @@ router.get("/api/:date", async (ctx) => {
       return;
     }
   }
-  ctx.response.body = getDateObj(dateObj);
+  ctx.response.body = {
+    text: "How Fast was that?",
+    date: getDateObj(dateObj),
+  };
 });
 
-router.get("/api", async (ctx) => {
-  ctx.response.body = getDateObj(new Date());
+router.get("/api", (ctx) => {
+  ctx.response.body = {
+    text: "Hello there",
+    date: getDateObj(new Date()),
+  };
 });
 
 app.use(oakCors());
