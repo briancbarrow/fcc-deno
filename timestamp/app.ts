@@ -46,8 +46,11 @@ router.get("/api/:date", (ctx) => {
   };
 });
 
-router.get("/api", async (ctx) => {
-  ctx.response.body = getDateObj(new Date());
+router.get("/api", (ctx) => {
+  ctx.response.body = {
+    text: "Hello there",
+    date: `Today is ${getDateObj(new Date())}`,
+  };
 });
 
 app.use(oakCors());
