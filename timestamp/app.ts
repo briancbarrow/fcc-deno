@@ -58,7 +58,7 @@ router.post("/dg", async (ctx) => {
 router.get("/api", async (ctx) => {
   await delay();
   ctx.response.body = {
-    text: "Hello World!",
+    text: "Hello UtahJS!",
     date: getDateObj(new Date()),
   };
 });
