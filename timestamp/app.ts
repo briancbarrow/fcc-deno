@@ -51,7 +51,7 @@ router.get("/api/:date", (ctx) => {
 
 router.post("/dg", async (ctx) => {
   const reqBody = await ctx.request.body().value;
-  console.log("dg", reqBody);
+  console.log("dg", reqBody.results.channels[0].alternatives[0].transcript);
   ctx.response.body = { ...reqBody, text: "Hello World!" };
 });
 
