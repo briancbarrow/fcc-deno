@@ -13,6 +13,9 @@ function getDateObj(dateObj: Date) {
     utc: dateObj.toUTCString(),
   };
 }
+function delay() {
+  return new Promise((resolve) => setTimeout(resolve, 5000));
+}
 
 router.get("/", async (ctx) => {
   // ctx.response.body = "Hello Tuesday Study Group!";
@@ -46,7 +49,14 @@ router.get("/api/:date", (ctx) => {
   };
 });
 
-router.get("/api", (ctx) => {
+router.post("/dg", async (ctx) => {
+  const reqBody = await ctx.request.body().value;
+  console.log("dg", reqBody);
+  ctx.response.body = { ...reqBody, text: "Hello World!" };
+});
+
+router.get("/api", async (ctx) => {
+  await delay();
   ctx.response.body = {
     text: "Hello World!",
     date: getDateObj(new Date()),
