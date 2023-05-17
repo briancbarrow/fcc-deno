@@ -63,6 +63,22 @@ router.get("/api", async (ctx) => {
   };
 });
 
+router.get("/vue-booklist", async (ctx) => {
+  const res = await fetch(
+    `https://api.airtable.com/v0/appXd7WLn2TcOPHUO/tblSfUXw95ob9ArvH`,
+    {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Deno.env.get("AIRTABLE_TOKEN")}`,
+      },
+    }
+  );
+  const books = await res.json();
+  console.log("books", books);
+  ctx.response.headers.set("Content-Type", "application/json");
+  ctx.response.body = books;
+});
+
 app.use(oakCors());
 app.use(router.routes());
 app.use(router.allowedMethods());
